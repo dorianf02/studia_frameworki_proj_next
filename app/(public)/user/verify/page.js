@@ -40,33 +40,29 @@
 
 "use client";
 import { useEffect } from "react";
-import { useAuth } from "@/app/lib/AuthContext"; // Hook do kontekstu użytkownika
-import { getAuth, signOut } from "firebase/auth"; // Importujemy signOut z Firebase
-import { useRouter } from "next/navigation"; // Hook do nawigacji
+import { useAuth } from "@/app/lib/AuthContext"; 
+import { getAuth, signOut } from "firebase/auth"; 
+import { useRouter } from "next/navigation"; 
 
 export default function VerifyEmail() {
-  const { user } = useAuth(); // Uzyskujemy użytkownika z kontekstu
-  const router = useRouter(); // Hook do przekierowania użytkownika
+  const { user } = useAuth(); 
+  const router = useRouter(); 
 
   useEffect(() => {
     if (user) {
-      // Jeśli użytkownik jest zalogowany, sprawdzamy, czy jego email został zweryfikowany
       if (!user.emailVerified) {
-        // Jeśli email nie jest zweryfikowany, wylogowujemy użytkownika
         const auth = getAuth();
         signOut(auth)
           .then(() => {
             console.log("User has been logged out");
-
-            // Przekierowujemy użytkownika na stronę logowania lub inną stronę po wylogowaniu
-            router.push("/user/login"); // Zmień ścieżkę na odpowiednią stronę
+            router.push("/user/login"); 
           })
           .catch((error) => {
             console.error("Error logging out: ", error.message);
           });
       }
     }
-  }, [user, router]); // Dodajemy router do zależności
+  }, [user, router]); 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex justify-center items-center">

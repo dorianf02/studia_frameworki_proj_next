@@ -27,20 +27,17 @@ export default function RegisterForm() {
     }
 
     try {
-      // Próbujemy zarejestrować użytkownika
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
 
-      // Jeśli rejestracja przebiegła pomyślnie, wysyłamy wiadomość weryfikacyjną
       await sendEmailVerification(userCredential.user); 
       alert("Rejestracja powiodła się! Sprawdź swoją skrzynkę pocztową.");
-      router.push("/user/verify");  // Przekierowanie na stronę weryfikacji
+      router.push("/user/verify"); 
 
     } catch (err) {
-      // Sprawdzamy, czy błąd to już zarejestrowany email
       if (err.code === "auth/email-already-in-use") {
         setError("Adres email jest już zarejestrowany. Proszę użyj innego adresu.");
       } else {

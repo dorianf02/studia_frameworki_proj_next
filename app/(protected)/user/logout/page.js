@@ -26,7 +26,7 @@ export default function LogoutForm() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/public/user/login"); // Przekierowanie po wylogowaniu
+      router.push("/public/user/login"); 
     } catch (error) {
       console.error("Błąd podczas wylogowywania:", error);
     }
